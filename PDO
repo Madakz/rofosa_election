@@ -1,0 +1,104 @@
+INSERT INTO DATABASE
+
+$sql = "INSERT INTO MyGuests (firstname, lastname, email)
+    VALUES ('John', 'Doe', 'john@example.com')";
+    // use exec() because no results are returned
+    $conn->exec($sql);
+
+
+
+
+LAST iD INSERTED
+
+$sql = "INSERT INTO MyGuests (firstname, lastname, email)
+    VALUES ('John', 'Doe', 'john@example.com')";
+    // use exec() because no results are returned
+    $conn->exec($sql);
+    $last_id = $conn->lastInsertId();
+    echo "New record created successfully. Last inserted ID is: " . $last_id;
+
+
+
+
+INSERT MULTIPLE RECORDS
+
+$sql = "INSERT INTO MyGuests (firstname, lastname, email)
+VALUES ('John', 'Doe', 'john@example.com');";
+$sql .= "INSERT INTO MyGuests (firstname, lastname, email)
+VALUES ('Mary', 'Moe', 'mary@example.com');";
+$sql .= "INSERT INTO MyGuests (firstname, lastname, email)
+VALUES ('Julie', 'Dooley', 'julie@example.com')";
+
+if ($conn->multi_query($sql) === TRUE) {
+    echo "New records created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+
+
+
+
+
+SELECT RECORD
+
+$stmt = $conn->prepare("SELECT id, firstname, lastname FROM MyGuests"); 
+    $stmt->execute();
+
+
+
+
+
+DELETE RECORD
+
+$sql = "DELETE FROM MyGuests WHERE id=3";
+
+    // use exec() because no results are returned
+    $conn->exec($sql);
+
+
+
+
+
+
+uPDATE RECORD
+
+ $sql = "UPDATE MyGuests SET lastname='Doe' WHERE id=2";
+
+    // Prepare statement
+    $stmt = $conn->prepare($sql);
+
+    // execute the query
+    $stmt->execute();
+
+    // echo a message to say the UPDATE succeeded
+    echo $stmt->rowCount() . " records UPDATED successfully"
+
+
+
+
+
+
+COUNT ASPIRANT RESULT
+
+Maybe you can use PDO's "fetchAll" method, which returns an array containing all the SELECT results. Then use "count" method to count the array's rows.
+
+Ex:
+$stmt = "SELECT"
+$rows = $stmt->fetchAll();
+$num_rows = count($rows);
+
+
+OR  
+
+$stmt = $db->query('SELECT * FROM table');
+$row_count = $stmt->rowCount();
+echo $row_count.' rows selected';
+
+
+
+
+
+
+
+
+
